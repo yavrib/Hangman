@@ -1,1 +1,10 @@
 c:\users\berkan\documents\visual studio 2013\Projects\Hangman\Hangman\bin\Debug\Hangman.exe.config
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\bin\Debug\Hangman.exe.config
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\bin\Debug\Hangman.exe
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\bin\Debug\Hangman.pdb
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.csprojResolveAssemblyReference.cache
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.Form1.resources
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.Properties.Resources.resources
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.csproj.GenerateResource.Cache
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.exe
+C:\Users\Berkan\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.pdb
