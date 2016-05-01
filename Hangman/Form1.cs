@@ -172,6 +172,7 @@ namespace Hangman
                  */
 
                 Life = 10;
+                hintLabel();
                 //foreach (Button b in this.Controls)
                 foreach (Button b in buttons)
                 {
@@ -201,6 +202,8 @@ namespace Hangman
 
         private void button6_Click(object sender, EventArgs e)
         {
+            hintLabel();
+            word = null;
             //Console.WriteLine(word);
             foreach (Button b in buttons)
             {
@@ -225,7 +228,6 @@ namespace Hangman
                     b.Enabled = false;
                 }
             }
-            word = null;
             /*
             foreach (Label lbl in labels)
             {
@@ -267,6 +269,7 @@ namespace Hangman
                 {
                     word = null;
                     Life = 10;
+                    hintLabel();
                     Console.WriteLine("You Lose");
                     /*foreach (Label lbl in labels)
                     {
@@ -301,6 +304,7 @@ namespace Hangman
                     word = null;
                     Console.WriteLine("You Win");
                     Hint = Hint + 1;
+                    hintLabel();
                     /*foreach (Label lbl in labels)
                     {
                         lbl.Text = "  ";
