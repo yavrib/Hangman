@@ -271,6 +271,7 @@ namespace Hangman
                     Life = 10;
                     hintLabel();
                     Console.WriteLine("You Lose");
+                    MessageBox.Show("You Lose!");
                     /*foreach (Label lbl in labels)
                     {
                         lbl.Text = "  ";
@@ -305,6 +306,7 @@ namespace Hangman
                     Console.WriteLine("You Win");
                     Hint = Hint + 1;
                     hintLabel();
+                    MessageBox.Show("You Win!");
                     /*foreach (Label lbl in labels)
                     {
                         lbl.Text = "  ";
