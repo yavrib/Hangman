@@ -26,3 +26,12 @@ C:\Users\Berkan\Desktop\Hangman\Hangman-master\Hangman\obj\Debug\Hangman.csprojR
 C:\Users\Berkan\Desktop\Hangman\Hangman-master\Hangman\obj\Debug\Hangman.Form1.resources
 C:\Users\Berkan\Desktop\Hangman\Hangman-master\Hangman\obj\Debug\Hangman.Properties.Resources.resources
 C:\Users\Berkan\Desktop\Hangman\Hangman-master\Hangman\obj\Debug\Hangman.csproj.GenerateResource.Cache
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\bin\Debug\Hangman.exe.config
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.exe
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.pdb
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\bin\Debug\Hangman.exe
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\bin\Debug\Hangman.pdb
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.csprojResolveAssemblyReference.cache
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.Form1.resources
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.Properties.Resources.resources
+C:\Users\Ali\Documents\GitHub\Hangman\Hangman\obj\Debug\Hangman.csproj.GenerateResource.Cache

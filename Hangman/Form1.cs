@@ -12,6 +12,7 @@ namespace Hangman
 {
     public partial class Form1 : Form
     {
+        //Words in category arrays
         String[] Animal = {
                               "ANT",
                               "BIRD",
@@ -61,12 +62,14 @@ namespace Hangman
                             "GANDALF",
                             "WIZARD"
                             };
+
+        //Initialize global scope variables
         Int32 Life = 10;
         Int32 Hint = 3;
         String word;
         Random r = new Random();
         Char[] charactersOfWord;
-        Int32 progress;
+        Int32 progress;     //A variable to track progress
         List<Button> buttons = new List<Button>();
         List<Label> labels = new List<Label>();
 
@@ -92,14 +95,15 @@ namespace Hangman
                 {
                     b.Enabled = false;
                 }
-                //Console.WriteLine(b.Text);
+
             }
         }
 
+        //Category selection buttons
         private void button1_Click(object sender, EventArgs e)
         {
-            word = Animal[r.Next(0, Animal.Length)];
-            charactersOfWord = word.ToCharArray();
+            word = Animal[r.Next(0, Animal.Length)];    //Getting random word from specific category array 
+            charactersOfWord = word.ToCharArray();  // Disintegrate every char in selected word to compare pushed button later
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -121,61 +125,23 @@ namespace Hangman
         }
 
 
-
+        //Buttons visibility settings after Game Start Button triggered
         private void button5_Click(object sender, EventArgs e)
         {
-            /*Label namelabel = new Label();
-            namelabel.Location = new Point(13, 13);
-            namelabel.Font = new Font(this.Font.Name, 35, FontStyle.Underline);
-            namelabel.Text = " ";
-            namelabel.AutoSize = true;
-            this.Controls.Add(namelabel);
-            */
+
             if (word == null)
             {
                 MessageBox.Show("Please select a category!");
             }
             else
             {
-                /*
-                foreach (Label lbl in labels)
-                {
-                    lbl.Text = "  ";
-                    //lbl.Font = new Font(this.Font.Name, 24, FontStyle.Regular);
-                    this.Controls.Remove(lbl);
-                } 
-                */
-                Console.WriteLine(this.Controls.GetType());
-                //int x = 14;
-                Console.WriteLine(word);
-                progress = word.Length;
+                progress = word.Length; //Progress setted word length to keep track of game
                 addLabel();
-                //for (int i = 0; i < progress; i++)
-                //{
-                    /*
-                    Label lbl = new Label();
-                    lbl.Location = new Point(x, 250);
-                    lbl.Text = "  ";
-                    lbl.Font = new Font(this.Font.Name, 24, FontStyle.Underline);
-                    lbl.AutoSize = true;
-                    labels.Add(lbl);
-                    //Console.WriteLine(x);
-                    x = x+35;
-                     Labels will be dealt here
-                     */
-                //}
-                /*
-                foreach (Label lbl in labels)
-                {
-                    this.Controls.Add(lbl);
-                }
-                 */
+                Life = 10;  //Initialize life tracker variable
+                hintLabel();    //Initialize hint label
 
-                Life = 10;
-                hintLabel();
-                //foreach (Button b in this.Controls)
                 foreach (Button b in buttons)
-                {
+                {   
                     if (b.Text.Length == 1)
                     {
                         b.Enabled = true;
@@ -199,12 +165,11 @@ namespace Hangman
         }
 
 
-
+        //Game button visibilty settings after end-game
         private void button6_Click(object sender, EventArgs e)
         {
             hintLabel();
             word = null;
-            //Console.WriteLine(word);
             foreach (Button b in buttons)
             {
                 if (b.Text.Length == 1)
@@ -228,116 +193,95 @@ namespace Hangman
                     b.Enabled = false;
                 }
             }
-            /*
-            foreach (Label lbl in labels)
-            {
-                Console.WriteLine(lbl.Text);
-                //lbl.Text = "  ";
-                //lbl.Font = new Font(this.Font.Name, 24, FontStyle.Regular);
-                //this.Controls.Remove(lbl);
-            } 
-             * */
             this.Invalidate();
         }
 
+        //Game core mechanics starts here 
         void btn_Click(object sender, EventArgs e)
         {
-            Button b = (Button)sender;
-            b.Enabled = false;
-            if (word.Contains(b.Text))
+            Button b = (Button)sender; //Button listener
+            b.Enabled = false;  //Disable button after pressed 
+            if (word.Contains(b.Text))  //Condition if selected word contains pressed char
             {
                 int i = 0;
-                foreach (var letter in charactersOfWord)
+                foreach (var letter in charactersOfWord)    //This loop check every char in array to get and add this char to labels list.
                 {
                     if (letter.ToString().Equals(b.Text))
                     {
-                        progress = progress - 1;
-                        labels[i].Text = letter.ToString();
-                        Console.WriteLine(i + " i");
+                        progress = progress - 1;    
+                        labels[i].Text = letter.ToString(); //Pressed letter goes to label list to print screen with exact index number
                     }
                     i = i + 1;
                 }
             }
             else
             {
-
                 Life = Life - 1;
-                Console.WriteLine(Life);
-                DrawIt();
+                DrawIt();   //Drawing one more stick to visualize hangman
             }
-                if (Life == 0)
+
+            //Player lose situation
+            if (Life == 0)
+            {
+                //Core variables which held game mechanichs are reset
+                word = null;
+                Life = 10;
+                hintLabel();
+                MessageBox.Show("You Lose!");
+
+                foreach (Button button in buttons)
                 {
-                    word = null;
-                    Life = 10;
-                    hintLabel();
-                    Console.WriteLine("You Lose");
-                    MessageBox.Show("You Lose!");
-                    /*foreach (Label lbl in labels)
+                    if (button.Text.Length.Equals(1))
                     {
-                        lbl.Text = "  ";
-                        this.Controls.Remove(lbl);
-                    } */
-                    foreach (Button button in buttons)
-                    {
-                        if (button.Text.Length.Equals(1))
-                        {
-                            button.Enabled = false;
-                        }
-                        if (!button.Text.Length.Equals(1))
-                        {
-                            button.Enabled = true;
-                        }
-                        if (button.Text.Equals("END GAME"))
-                        {
-                            button.Enabled = false;
-                        }
-                        if (button.Text.Equals("Hint"))
-                        {
-                            button.Enabled = false;
-                        }
+                        button.Enabled = false;
                     }
-
-
-                }
-                if (progress == 0)
-                {
-                    Life = 10;
-                    word = null;
-                    Console.WriteLine("You Win");
-                    Hint = Hint + 1;
-                    hintLabel();
-                    MessageBox.Show("You Win!");
-                    /*foreach (Label lbl in labels)
+                    if (!button.Text.Length.Equals(1))
                     {
-                        lbl.Text = "  ";
-                        this.Controls.Remove(lbl);
-                    } */
-                    foreach (Button button in buttons)
-                    {
-                        if (button.Text.Length.Equals(1))
-                        {
-                            button.Enabled = false;
-                        }
-                        if (!button.Text.Length.Equals(1))
-                        {
-                            button.Enabled = true;
-                        }
-                        if (button.Text.Equals("END GAME"))
-                        {
-                            button.Enabled = false;
-                        }
-                        if (button.Text.Equals("Hint"))
-                        {
-                            button.Enabled = false;
-                        }
+                        button.Enabled = true;
                     }
-                    Console.WriteLine("Buttons were not active at this point.");
-
+                    if (button.Text.Equals("END GAME"))
+                    {
+                        button.Enabled = false;
+                    }
+                    if (button.Text.Equals("Hint"))
+                    {
+                        button.Enabled = false;
+                    }
                 }
-                //Console.WriteLine(b.Text);
             }
-        
 
+            //Player win situation
+            if (progress == 0)
+            {
+                Life = 10;
+                word = null;
+                Hint = Hint + 1;
+                hintLabel();
+                MessageBox.Show("You Win!");
+               
+                foreach (Button button in buttons)
+                {
+                    if (button.Text.Length.Equals(1))
+                    {
+                        button.Enabled = false;
+                    }
+                    if (!button.Text.Length.Equals(1))
+                    {
+                        button.Enabled = true;
+                    }
+                    if (button.Text.Equals("END GAME"))
+                    {
+                        button.Enabled = false;
+                    }
+                    if (button.Text.Equals("Hint"))
+                    {
+                        button.Enabled = false;
+                    }
+                }
+            }
+        }
+
+        //Hangman visuals goes here
         private void DrawIt()
         {
             System.Drawing.Graphics graphics = this.CreateGraphics();
@@ -386,7 +330,7 @@ namespace Hangman
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            this.DoubleBuffered = true;
+            this.DoubleBuffered = true; //To handle flickering problems we use this property.
 
             foreach (var item in this.Controls)
             {
@@ -421,10 +365,11 @@ namespace Hangman
             word = null;
             this.Invalidate();
         }
-        private void addLabel() {
+        //Add labels to screen
+        private void addLabel()
+        {
             groupBox1.Controls.Clear();
             labels.Clear();
-            //int a = charactersOfWord.Length;
             int spaceBetweenLabels = groupBox1.Width / charactersOfWord.Length;
             for (int i = 0; i < charactersOfWord.Length; i++)
             {
@@ -436,11 +381,14 @@ namespace Hangman
                 labels.Add(label);
             }
         }
-        private void hintLabel() { 
+        //Shows how many hint left
+        private void hintLabel()
+        {
             Label hintLabel = new Label();
             this.label1.Text = "Hints Left: " + Hint.ToString();
         }
 
+        //Hint button mechanics
         private void button21_Click(object sender, EventArgs e)
         {
             if (Hint == 0)
@@ -462,6 +410,7 @@ namespace Hangman
                     }
                     i = i + 1;
                 }
+
                 Random hintIndex = new Random();
                 hintValue = indexArray[hintIndex.Next(0, progress)];
                 letterToBeUnlocked = charactersOfWord[hintValue];
@@ -471,7 +420,7 @@ namespace Hangman
                     {
                         button.PerformClick();
                     }
-                } 
+                }
             }
             hintLabel();
         }
