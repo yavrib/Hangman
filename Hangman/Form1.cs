@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Hangman
 {
     public partial class Form1 : Form
     {
-        //Words in category arrays
+        //String path = "C:/Users/Berkan/Desktop/";
+        String path = "";
+        /*Words in category arrays
         String[] Animal = {
                               "ANT",
                               "BIRD",
@@ -62,7 +65,7 @@ namespace Hangman
                             "GANDALF",
                             "WIZARD"
                             };
-
+        */
         //Initialize global scope variables
         Int32 Life = 10;
         Int32 Hint = 3;
@@ -99,27 +102,47 @@ namespace Hangman
             }
         }
 
+        private String[] readFromTextFile(String path) {
+            String[] words;
+            using (TextReader tr = new StreamReader(path, Encoding.ASCII))
+            {
+                //string stringWords = tr.ReadToEnd();//words.Add(tr.ReadToEnd());
+                words = tr.ReadToEnd().Split(';');
+            }
+            return words;
+        }
+
+        
+
         //Category selection buttons
         private void button1_Click(object sender, EventArgs e)
         {
+            String pathForAnimal = path + "Animal.txt";
+            String[] Animal = readFromTextFile(pathForAnimal);
             word = Animal[r.Next(0, Animal.Length)];    //Getting random word from specific category array 
             charactersOfWord = word.ToCharArray();  // Disintegrate every char in selected word to compare pushed button later
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            String pathForCity = path + "City.txt";
+            String[] City = readFromTextFile(pathForCity);
             word = City[r.Next(0, City.Length)];
             charactersOfWord = word.ToCharArray();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            String pathForFurnishing = path + "Furnishing.txt";
+            String[] Furnishing = readFromTextFile(pathForFurnishing);
             word = Furnishing[r.Next(0, Furnishing.Length)];
             charactersOfWord = word.ToCharArray();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            String pathForGeek = path + "Geek.txt";
+            String[] Geek = readFromTextFile(pathForGeek);
             word = Geek[r.Next(0, Geek.Length)];
             charactersOfWord = word.ToCharArray();
         }
@@ -128,7 +151,6 @@ namespace Hangman
         //Buttons visibility settings after Game Start Button triggered
         private void button5_Click(object sender, EventArgs e)
         {
-
             if (word == null)
             {
                 MessageBox.Show("Please select a category!");
@@ -168,32 +190,48 @@ namespace Hangman
         //Game button visibilty settings after end-game
         private void button6_Click(object sender, EventArgs e)
         {
-            hintLabel();
-            word = null;
-            foreach (Button b in buttons)
+            var confirmResult = MessageBox.Show("End game will result in a hint penalty. Your hints will be decreased by 3.\nWould you like to end the game?",
+                                     "End Game",
+                                     MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
             {
-                if (b.Text.Length == 1)
+                Hint = Hint - 3;
+                if (Hint < 0)
                 {
-                    b.Enabled = false;
+                    Hint = 0;
                 }
-                else
+                hintLabel();
+                word = null;
+                foreach (Button b in buttons)
                 {
-                    b.Enabled = true;
+                    if (b.Text.Length == 1)
+                    {
+                        b.Enabled = false;
+                    }
+                    else
+                    {
+                        b.Enabled = true;
+                    }
+                    if (b.Text.Equals("GAME START"))
+                    {
+                        b.Enabled = true;
+                    }
+                    if (b.Text.Equals("END GAME"))
+                    {
+                        b.Enabled = false;
+                    }
+                    if (b.Text.Equals("Hint"))
+                    {
+                        b.Enabled = false;
+                    }
                 }
-                if (b.Text.Equals("GAME START"))
-                {
-                    b.Enabled = true;
-                }
-                if (b.Text.Equals("END GAME"))
-                {
-                    b.Enabled = false;
-                }
-                if (b.Text.Equals("Hint"))
-                {
-                    b.Enabled = false;
-                }
+                this.Invalidate();
             }
-            this.Invalidate();
+            else
+            {
+                //Do Nothing
+            }
+            
         }
 
         //Game core mechanics starts here 
